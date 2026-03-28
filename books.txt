@@ -1,0 +1,2 @@
+Sample Book,10.0
+Java Basics,45.0
