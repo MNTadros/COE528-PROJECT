@@ -1,8 +1,8 @@
+package coe528project;
+
 import java.util.ArrayList;
 import java.io.*;
 import java.util.Scanner;
-
-package coe528project;
 
 public class BookStore {
 
@@ -58,13 +58,13 @@ public class BookStore {
         for (Customer c : customers) {
             if (c.getUsername().equals(username) &&
                 c.getPassword().equals(password)) {
-                return c; // match found
+                return c; 
             }
         }
         return null; // no match
     }
 
-    // ---------------- LOGIN LOGIC ----------------
+    // ---------------- LOGIN ----------------
 
     // Determines user type during login
     public String login(String username, String password) {
@@ -92,7 +92,7 @@ public class BookStore {
         loadCustomers();
     }
 
-    // Load books from books.txt
+    // Load books from the file
     private void loadBooks() {
         try {
             File file = new File("books.txt");
@@ -116,11 +116,11 @@ public class BookStore {
             scanner.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+            System.out.println("Error");
+          }
     }
 
-    // Load customers from customers.txt
+    // Load customers from the file
     private void loadCustomers() {
         try {
             File file = new File("customers.txt");
@@ -145,8 +145,8 @@ public class BookStore {
             scanner.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+            System.out.println("Error");
+          }
     }
 
     // Save all data to files
@@ -155,7 +155,7 @@ public class BookStore {
         saveCustomers();
     }
 
-    // Save books to books.txt
+    // Save books to the file 
     private void saveBooks() {
         try {
             PrintWriter writer = new PrintWriter(new File("books.txt"));
@@ -167,25 +167,23 @@ public class BookStore {
             writer.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+            System.out.println("Error");
+          }
     }
 
-    // Save customers to customers.txt
+    // Save customers to the file 
     private void saveCustomers() {
         try {
             PrintWriter writer = new PrintWriter(new File("customers.txt"));
 
             for (Customer c : customers) {
-                writer.println(c.getUsername() + "," +
-                               c.getPassword() + "," +
-                               c.getPoints());
+                writer.println(c.getUsername() + "," + c.getPassword() + "," + c.getPoints());
             }
 
             writer.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+            System.out.println("Error");
+          }
     }
 }
