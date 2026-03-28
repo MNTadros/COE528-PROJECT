@@ -11,7 +11,13 @@ public class Customer extends User {
     public Customer(String username, String password, int points) {
         super(username, password);
         this.points = points;
-        updateState(); // set initial state
+        
+        // Set initial state
+        if (points >= 1000) {
+            state = new GoldState();
+        } else {
+            state = new SilverState();
+        }
     }
 
     // Getter for points
@@ -30,21 +36,22 @@ public class Customer extends User {
         return state;
     }
 
+    // Allows state objects to change the customer's state
+    public void setState(CustomerState state) {
+        this.state = state;
+    }
+    
     // Update state based on points
     public void updateState() {
-        if (points >= 1000) {
-            state = new GoldState();
-        } else {
-            state = new SilverState();
-        }
+        state.checkState(this);
     }
 
-    // Get status as string (for GUI)
+    // Get status as a string 
     public String getStatus() {
         return state.getStatus();
     }
 
-    // ---------------- BUY LOGIC ----------------
+    // ---------------- BUYING ----------------
 
     // Buy books normally
     public double buyBooks(ArrayList<Book> selectedBooks) {
@@ -55,7 +62,7 @@ public class Customer extends User {
             totalCost += b.getPrice();
         }
 
-        // Earn points (10 points per $1)
+        // Earn 10 points per $1
         int earnedPoints = (int)(totalCost * 10);
         points += earnedPoints;
 
@@ -87,7 +94,7 @@ public class Customer extends User {
         int usedPoints = (int)(discount * 100);
         points -= usedPoints;
 
-        // Earn new points from final cost
+        // Earn new points from the final cost
         int earnedPoints = (int)(finalCost * 10);
         points += earnedPoints;
 
