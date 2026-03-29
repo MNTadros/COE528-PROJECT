@@ -22,8 +22,8 @@ public class OwnerCustomerScreen extends JPanel implements ActionListener {
         this.app = app;
         this.store = store;
 
-        setLayout(new BorderLayout(10, 10));
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setLayout(new BorderLayout(12, 12));
+        setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
         // Create the model locally just to initialize the table
         String[] columns = {"Username", "Password", "Points"};
@@ -34,22 +34,28 @@ public class OwnerCustomerScreen extends JPanel implements ActionListener {
             }
         };
         customersTable = new JTable(initialModel);
-        add(new JScrollPane(customersTable), BorderLayout.NORTH);
+        customersTable.setFillsViewportHeight(true);
+        JScrollPane tableScroll = new JScrollPane(customersTable);
+        tableScroll.setPreferredSize(new Dimension(0, 160));
 
-        JPanel middlePanel = new JPanel(new FlowLayout());
-        usernameField = new JTextField(10);
-        passwordField = new JTextField(10);
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 6));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 8, 0));
+        usernameField = new JTextField(12);
+        passwordField = new JTextField(12);
         addButton = new JButton("Add");
         addButton.addActionListener(this);
 
-        middlePanel.add(new JLabel("Username:"));
-        middlePanel.add(usernameField);
-        middlePanel.add(new JLabel("Password:"));
-        middlePanel.add(passwordField);
-        middlePanel.add(addButton);
-        add(middlePanel, BorderLayout.CENTER);
+        topPanel.add(new JLabel("Username:"));
+        topPanel.add(usernameField);
+        topPanel.add(new JLabel("Password:"));
+        topPanel.add(passwordField);
+        topPanel.add(addButton);
+        add(topPanel, BorderLayout.NORTH);
 
-        JPanel bottomPanel = new JPanel(new FlowLayout());
+        add(tableScroll, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 6));
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
         deleteButton = new JButton("Delete");
         backButton = new JButton("Back");
         deleteButton.addActionListener(this);
