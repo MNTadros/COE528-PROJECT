@@ -1,4 +1,4 @@
-package coe528project.gui;
+//package coe528project;
 
 import coe528project.model.BookStore;
 import coe528project.model.Customer;
@@ -15,40 +15,39 @@ public class CustomerCostScreen extends JPanel implements ActionListener {
     private BookStoreApp app;
     private BookStore store;
 
-    // customer and finalTC passed in to fulfill the required logic display
+    // The final cost is passed in so we don't have to do the math again here
     public CustomerCostScreen(BookStoreApp app, BookStore store, Customer customer, double finalTC) {
         this.app = app;
         this.store = store;
 
+        // Put everything in the middle
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(15, 15, 15, 15);
         gbc.anchor = GridBagConstraints.CENTER;
 
         // Requirement: The top item is the message Total Cost: TC
+        // Make sure the money shows exactly two decimal places (like $10.00)
         totalCostLabel = new JLabel(String.format("Total Cost: $%.2f", finalTC));
         totalCostLabel.setFont(totalCostLabel.getFont().deriveFont(Font.BOLD, 16f));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        add(totalCostLabel, gbc);
+        gbc.gridx = 0; gbc.gridy = 0; add(totalCostLabel, gbc);
 
         // Requirement: middle item is the message Points: P, Status: S
+        // Get the newest points and status directly from the customer
         pointsLabel = new JLabel("Points: " + customer.getPoints() + ",  Status: " + customer.getStatus());
         pointsLabel.setFont(pointsLabel.getFont().deriveFont(14f));
-        gbc.gridy = 1;
-        add(pointsLabel, gbc);
+        gbc.gridy = 1; add(pointsLabel, gbc);
 
         statusLabel = new JLabel("Thank you for your purchase!");
-        gbc.gridy = 2;
-        add(statusLabel, gbc);
+        gbc.gridy = 2; add(statusLabel, gbc);
 
         // Requirement: The bottom item is a [Logout] button
         logoutButton = new JButton("Logout");
         logoutButton.addActionListener(this);
-        gbc.gridy = 3;
-        add(logoutButton, gbc);
+        gbc.gridy = 3; add(logoutButton, gbc);
     }
 
+    // Send the user back to the login screen
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == logoutButton) {
